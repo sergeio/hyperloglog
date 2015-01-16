@@ -27,7 +27,7 @@ Explain How!
 
 The key idea behind HyperLogLog is that if you get a large set of randomly
 distributed data, the probability of seeing a binary number that ends in x
-zeroes is `2 ** x`.  So the probability of seeing a number that ends in a `0`
+zeroes is `2^x`.  So the probability of seeing a number that ends in a `0`
 is 50%.  The probability of seeing a number that ends in `00` is 25%.  `000`
 is 12.5%, and so on.
 
@@ -36,7 +36,7 @@ numbers) and we see a binary number that ends in `0000`, and no numbers that
 end in more zeroes, we can reasonably estimate that the set has 16 unique
 numbers in it, since on average 1 / 16 numbers ends in four zeroes.
 
-### But what if our data set isn't randomly distributed integers
+### But what if our data set isn't randomly distributed integers?
 
 **Haaash functions!**
 
@@ -59,7 +59,7 @@ for each subset, and average them together, we can get much closer.
 This process is called "stochastic averaging", and first appears (I think) in
 [Flajolet and Martin's Probabilistic Counting Algorithms for Data Base
 Applications](http://www.mathcs.emory.edu/~cheung/papers/StreamDB/Probab/
-1985-Flajolet-Probabilistic-counting.pdf)
+1985-Flajolet-Probabilistic-counting.pdf).
 
 There are a couple more technicalities like correcting your estimate if it is
 below a certain amount, or if it is very large, or if it smells a little weird.
@@ -91,7 +91,7 @@ Let's See It in Action!
 
 ### Basic Usage
 
-```ipython
+```python
 In [1]: from compare import *
 
 In [2]: data = create_set(100000)
@@ -116,7 +116,7 @@ Out[6]: 97393.92237981079
 We can see the benefits of the small range correction in an example that has
 very few elements:
 
-```ipython
+```python
 In [7]: small_data = [1, 2, 3, 4, 5, 5, 5, 3]
 
 In [8]: hyperloglog(small_data)
@@ -133,7 +133,7 @@ A difference of ~1% and 16000%.
 Being a bit more rigorous, we run 1000 trials of each algorithm on similar data
 and get the average absolute percent error:
 
-```ipython
+```python
 In [1]: from compare import compare_hyperloglog_and_loglog
 
 In [2]: compare_hyperloglog_and_loglog(num_elements=10000, num_trials=1000)
