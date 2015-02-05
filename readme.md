@@ -58,24 +58,24 @@ for each subset, and average them together, we can get much closer.
 
 This process is called "stochastic averaging", and first appears (I think) in
 [Flajolet and Martin's Probabilistic Counting Algorithms for Data Base
-Applications](http://www.mathcs.emory.edu/~cheung/papers/StreamDB/Probab/
-1985-Flajolet-Probabilistic-counting.pdf).
+Applications](http://www.mathcs.emory.edu/~cheung/papers/StreamDB/Probab/1985-Flajolet-Probabilistic-counting.pdf).
 
 There are a couple more technicalities like correcting your estimate if it is
 below a certain amount, or if it is very large, or if it smells a little weird.
 But it's not too crazy.  The whole algorithm fits comfortably in < 20 lines of
 code.
 
-The details and derivations can be found in [HyperLogLog's whitepaper](http://
-algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf).
+The details and derivations can be found in [HyperLogLog's
+whitepaper](http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf).
 
 
 So What Am I Looking at Here?
 -----------------------------
 
 I initially got excited about this algorithms due to Nick Johnson's [Damn Cool
-Algorithms: Cardinality Estimation](http://blog.notdot.net/2012/09/
-Dam-Cool-Algorithms-Cardinality-Estimation) post.
+Algorithms: Cardinality
+Estimation](http://blog.notdot.net/2012/09/Dam-Cool-Algorithms-Cardinality-Estimation)
+post.
 
 I copied the code from his blogpost into `loglog.py` to test it, and
 implemented the full HyperLogLog algorithm in `hyperloglog.py`.  Nick's intent
