@@ -11,7 +11,7 @@ def cardinality(data_set):
     return len(set(data_set))
 ```
 
-Which would work fine (and has the advantage of giving an exact answer) except
+This would work fine (and has the advantage of giving an exact answer) except
 when the data set is truly "big-ol'".  If the data set doesn't even come close
 to fitting in memory on our computer, the problem becomes a fair bit more
 difficult.
@@ -25,7 +25,7 @@ Explain How!
 
 ### The Kernel
 
-The key idea behind HyperLogLog is that if you get a large set of randomly
+The key idea powering HyperLogLog is that if you get a large set of randomly
 distributed data, the probability of seeing a binary number that ends in x
 zeroes is `2^x`.  So the probability of seeing a number that ends in a `0`
 is 50%.  The probability of seeing a number that ends in `00` is 25%.  `000`
@@ -38,23 +38,23 @@ numbers in it, since on average 1 / 16 numbers ends in four zeroes.
 
 ### But what if our data set isn't randomly distributed integers?
 
-**Haaash functions!**
+**Hash functions to the rescue!**
 
-Sorry. Ahem.  The second key idea is that a good hash function maps any inputs
-to what appears to be (and for us, is) a set of randomly distributed values.
+The second key idea is that a good hash function maps any inputs to what
+appears to be (and for us, is) a set of randomly distributed values.
 
-This could also have the added benefit of shrinking your data a bit.  If your
-data set is made up of 10MB .jpgs or something like that, how all we care
-about are the hashes of those .jpgs.
+This could also have the added benefit of shrinking your data.  If your data
+set is made up of 10MB .jpgs or something like that, how all we care about are
+the hashes of those .jpgs.
 
 ### Take it home
 
 All that was pretty cool, but it only gets us to the nearest power of two and
-would have a pretty high error.  It turns out we can do better.
+has a high error rate.  It turns out we can do better.
 
 If we split our data into many randomly divided subsets of that data, count
-the-maximum-amount-of-trailing-zeroes-on-the-hash-of-each-value -- \*gaasp\* --
-for each subset, and average them together, we can get much closer.
+the-maximum-amount-of-trailing-zeroes-in-the-hash-of-each-value for each
+subset, and average them together, we can get much closer.
 
 This process is called "stochastic averaging", and first appears (I think) in
 [Flajolet and Martin's Probabilistic Counting Algorithms for Data Base
@@ -161,9 +161,6 @@ periodic estimate of the cardinality of the set they'd seen.
 
 Why?
 ----
-
-This should have probably been somewhere higher up, but it's too late now.
-Text can only be appended.
 
 Originally these algorithms were developed for database applications, as you
 might have guessed from the title of the first whitepaper -- *Probabilistic
